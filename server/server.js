@@ -23,10 +23,10 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('newMessage', generateMessage('Admin', 'New User Joiined'));
 
 
-    socket.on('createMessage', (message) => {
+    socket.on('createMessage', (message, callback) => {
         console.log('CreateMessage', message);
         io.emit('newMessage',generateMessage(message.from,message.text));
-        
+        callback('This is from the server'); 
 
         // socket.broadcast.emit('newMessage',{
         //     form: message.form,
@@ -34,6 +34,7 @@ io.on('connection', (socket) => {
         //     createdAt: new Date().getTime()
         // })
     });
+
 
     socket.on('disconnect', () => {
         console.log('User was disconnected');
