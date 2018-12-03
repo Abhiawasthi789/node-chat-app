@@ -17,16 +17,34 @@ socket.on('newMessage', function (message) {
     jQuery('#messages').append(li);
 });
 
-
+var messageTextbox = jQuery('[name=message]');
 
 jQuery('#message-form').on('submit', function (e) {
     e.preventDefault();
 
-    socket.emit('createMessage',{
+    socket.emit('createMessage', {
         from: 'User',
-        text: jQuery('[name=message]').val()
+        text: messageTextbox.val()
 
-    }, function(){
-
+    }, function () {
+        messageTextbox.val('')
     });
 });
+
+// var locationButton = jQuery('#send-location');
+// locationButton.on('click', function () {
+//     if (navigator.geolocation) {
+//         return alert('Geolocation not supported by your browser');
+//     }
+
+//     navigator.geolocation.getCurrentPosition(
+//         function(success) {
+//             /* Location tracking code */
+//         },
+//         function(failure) {
+//             if(failure.message.indexOf("Only secure origins are allowed") == 0) {
+//                 alert('Only secure origins are allowed by your browser.');
+//             }
+        
+//     });
+// });
